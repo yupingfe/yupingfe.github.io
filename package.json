@@ -5,6 +5,7 @@
   "main": "index.js",
   "author": "CYAN",
   "license": "MIT",
+  "homepage": "https://zoutianwei.github.io/",
   "scripts": {
     "dev": "vuepress dev docs",
     "build": "vuepress build docs"
