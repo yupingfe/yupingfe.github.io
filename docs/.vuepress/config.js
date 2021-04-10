@@ -9,32 +9,49 @@ module.exports = {
     lineNumbers: false // 代码块显示行号
   },
   themeConfig: {
+    smoothScroll: true,
     nav:[ // 导航栏配置
       {text: 'Home', link: '/' },
       {
         text: 'HTML&CSS', 
-        items: [
-          {text: 'basic', link: '/vue/basic/basic.md'},
-          {text: 'ultimate', link: '/vue/ultimate/ultimate.md'}
-        ]
+        link: '/htmlcss/'
       },
       {
         text: 'JavaScript', 
-        items: [
-          {text: 'basic', link: '/vue/basic/basic.md'},
-          {text: 'ultimate', link: '/vue/ultimate/ultimate.md'}
-        ]
+        link: '/javascript/'
       },
       {
         text: 'Vue', 
-        items: [
-          {text: 'basic', link: '/vue/basic/basic.md'},
-          {text: 'ultimate', link: '/vue/ultimate/ultimate.md'}
-        ]
+        link: '/vue/' 
+      },
+      {
+        text: 'Others', 
+        link: '/others/'
       },
       {text: 'Github', link: 'https://github.com/zoutianwei'}      
     ],
-    sidebar: 'auto', // 侧边栏配置
-    sidebarDepth: 2, // 侧边栏显示2级
+    sidebar: {
+      '/htmlcss/': [
+        '',
+      ],
+      '/javascript/': [
+        '',
+        'inherit'
+      ],
+      '/vue/': [
+        '',
+        'native',
+        'components',
+        'vue-cli',
+        'router',
+        'vuex'
+      ],
+      '/others/': [
+        '',
+        'nodejs',
+        'test'
+      ]
+    }, // 侧边栏配置
+    sidebarDepth: 3, // 侧边栏显示2级
   }
 };
