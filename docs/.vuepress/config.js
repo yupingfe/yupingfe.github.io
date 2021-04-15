@@ -33,7 +33,7 @@ module.exports = {
     sidebar: {
       '/htmlcss/': [
         '',
-        'css'
+        'css-note'
       ],
       '/javascript/': [
         '',
