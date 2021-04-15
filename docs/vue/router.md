@@ -52,6 +52,8 @@ export default router
 
 ### 动态路由和嵌套路由
 
+一个“路径参数”使用冒号 `:` 标记。当匹配到一个路由时，参数值会被设置到 `this.$route.params`，可以在每个组件内使用。
+
 ```js
 {
     path: '/products',
@@ -59,7 +61,7 @@ export default router
     component: Products,
     children: [
         {
-            path: ':type',
+            path: ':type', // 这里就是动态路由
             name: 'Products',
             component: Catagory
         }
@@ -67,7 +69,7 @@ export default router
 }
 ```
 
-通过`watch()`监听`$route(to, from)`的变化，进而在子路由的组件当中做出相应。
+老方法：通过`watch()`监听`$route(to, from)`的变化，进而在子路由的组件当中做出相应。
 
 ### 激活路由的CSS样式设置
 

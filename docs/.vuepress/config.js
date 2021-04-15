@@ -33,6 +33,7 @@ module.exports = {
     sidebar: {
       '/htmlcss/': [
         '',
+        'css'
       ],
       '/javascript/': [
         '',
@@ -49,7 +50,11 @@ module.exports = {
       '/others/': [
         '',
         'nodejs',
-        'test'
+        'interview-html',
+        'interview-css',
+        'interview-js',
+        'interview-vue',
+        'interview-other',
       ]
     }, // 侧边栏配置
     sidebarDepth: 3, // 侧边栏显示2级
