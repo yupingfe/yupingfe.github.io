@@ -27,31 +27,69 @@ v-model是:value="msg"[@input](https://link.zhihu.com/?target=https%3A//github.c
 **有利于SEO**：其实就是有利于爬虫来爬你的页面，因为部分页面爬虫是不支持执行JavaScript的，这种不支持执行JavaScript的爬虫抓取到的非SSR的页面会是一个空的HTML页面，而有了SSR以后，这些爬虫就可以获取到完整的HTML结构的数据，进而收录到搜索引擎中。
  **白屏时间更短**：相对于客户端渲染，服务端渲染在浏览器请求URL之后已经得到了一个带有数据的HTML文本，浏览器只需要解析HTML，直接构建DOM树就可以。而客户端渲染，需要先得到一个空的HTML页面，这个时候页面已经进入白屏，之后还需要经过加载并执行 JavaScript、请求后端服务器获取数据、JavaScript 渲染页面几个过程才可以看到最后的页面。特别是在复杂应用中，由于需要加载 JavaScript 脚本，越是复杂的应用，需要加载的 JavaScript 脚本就越多、越大，这会导致应用的**首屏加载时间非常长**，进而降低了体验感。
 
+## vue router是基于什么实现的？
+
+hashState和popState事件来实现的
+
+`window.addEventListener('hashchange', matchAndUpdate)`
+
 1. nuxt（一款基于vue的框架）
+
 2. vuex描述一下？哪里用到？有啥好处？
+
 3. extend和mixin的区别
+
 4. vue循环遍历（v-for）是key的作用，以及使用时应注意什么
+
 5. `object.defineProperty`实现vue数据相应有什么缺点
+
 6. 生命周期钩子函数常用那些？一般这些钩子里会写什么？用最多的是那两个？
 
    1. create和mount有啥区别
    2. 可以在create里面获取DOM属性吗？
+
 7. vue哪里监听不到函数的变化？
+
 8. 自己封装的函数有哪些？
 
    1. axios
+
 9. 用户授权？
+
 10. vue中`nexttick`的作用？
+
 11. 导航守卫？
+
 12. eventbus有什么用法？
+
 13. todolist？
+
 14. 手写表单验证？
+
 15. vue路由模式？history和hash模式？
 
     1. 使用history时页面刷新返回404，这时候应该怎么做？
+
 16. vue登录权限？
+
 17. 收藏的逻辑？
+
 18. watch的用法？
+
+    ```js
+    watch: {
+      obj: {
+        handler (newValue, orldValue) {
+          console.log(newValue)
+        },
+        immediate: true, // 以上啦就监听
+        deep: true // 深度监听
+      }
+    }
+    ```
+
+    
+
 19. 用过什么css动画库
 
 animate.css

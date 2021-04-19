@@ -37,6 +37,7 @@ module.exports = {
       ],
       '/javascript/': [
         '',
+        'js',
         'inherit'
       ],
       '/vue/': [

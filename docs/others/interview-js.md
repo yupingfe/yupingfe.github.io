@@ -4,27 +4,26 @@
 
 1. webpack设置
 2. gulp常用的插件
-3. 深浅拷贝
-4. 拖拽用到哪些事件
-5. ES6有哪些新特性
+3. 拖拽用到哪些事件
+4. ES6有哪些新特性
    1. 箭头函数
-6. 解决异步的方法，除了`promise/async`你还知道那些？
-7. JS适合面向对象还是过程？
-8. 给一个按钮绑定两个`onclick`事件
-9. 怎么理解vue是渐进式框架？
-10. 封装vue组建双向数据绑定的原理
-11. 数组去重
-12. 数组方法
-13. 怎么获取时间？怎么判断指定时间提示信息？
-14. Cookie和LS除了大小区别还有什么不同？
+5. 解决异步的方法，除了`promise/async`你还知道那些？
+6. JS适合面向对象还是过程？
+7. 给一个按钮绑定两个`onclick`事件
+8. 怎么理解vue是渐进式框架？
+9. 封装vue组建双向数据绑定的原理
+10. 数组去重
+11. 数组方法
+12. 怎么获取时间？怎么判断指定时间提示信息？
+13. Cookie和LS除了大小区别还有什么不同？
     1. Cookie属性？
-15. `let const var`区别？
-16. `httponly`知道不？
-17. 继承
-18. 必包
-19. 数组遍历的方式？`for foreach map`的区别
-20. 实现打印1-100数字，对第n个数字停顿n秒？
-21. call和apply区别
+14. `let const var`区别？
+15. `httponly`知道不？
+16. 继承
+17. 必包
+18. 数组遍历的方式？`for foreach map`的区别
+19. 实现打印1-100数字，对第n个数字停顿n秒？
+20. call和apply区别
 
 ## 什么是事件代理？
 
@@ -42,6 +41,46 @@
 1. 部分事件如 focus、blur 等无冒泡机制，所以无法委托。
 2. 事件委托有对子元素的查找过程，委托层级过深，可能会有性能问题
 3. 频繁触发的事件如 mousemove、mouseout、mouseover等，不适合事件委托
+
+## 深浅拷贝？
+
+1. 赋值运算符 `=` 实现的是浅拷贝，只拷贝对象的引用值；
+
+2. JavaScript 中数组和对象自带的拷贝方法都是“首层浅拷贝”；
+
+   包括 数组`concat`,`Object.assign`, 展开运算符`...`
+
+3. `JSON.stringify` 实现的是深拷贝，但是对目标对象有要求(无法复制函数)；
+
+4. 若想真正意义上的深拷贝，请递归。
+
+5. 也可以使用lodash库的deepClone方法
+
+**递归实现数组深拷贝**
+
+```js
+function deepCopy(source) {
+      let target = Array.isArray(source) ? [] : {} // 判断是否为数组
+      for (key in source) {
+        if (source[key] && typeof source[key] === 'object') { // 判断是否为对对象
+          target[key] = Array.isArray(source[key]) ? [] : {}
+          target[key] = deepCopy(source[key]) // 执行递归
+        }
+        else {
+          target[key] = source[key]
+        }
+      }
+      return target
+    }
+const originObj = {a:'a',b:[1,2,3],c:{cc:'cc'}, d: function () { console.log(this.a);}};
+const targetObj = deepCopy(originObj)
+targetObj.d()
+targetObj.a = 'changed'
+console.log(targetObj);
+targetObj.d()
+```
+
+
 
 ## 简述JS的闭包机制？
 
@@ -93,4 +132,35 @@ function getImgBase64(){
     }
 }
 ```
+
+## 如何实现图片的懒加载？
+
+```js
+  var viewportHeight = document.documentElement.clientHeight // viewport高度
+  var boxs = document.querySelectorAll('.box')
+  function changeColor() {
+    var docScrollTop = document.documentElement.scrollTop // 滚动上去的内容高度
+    for (let i = 0; i < boxs.length; i++) {
+      if (boxs[i].offsetTop - docScrollTop < viewportHeight) {
+        setTimeout(function () {
+          boxs[i].classList.add('red')
+        }, 500)
+      }
+    } 
+  }
+  changeColor()
+  window.onscroll = function () {
+    changeColor()
+  }
+```
+
+// 也可以使用`boxs[i].getBoundingClientRect().top`来代替`boxs[i].offsetTop - docScrollTop`
+
+`getBoundingClientRect()`方法可以返回元素到视口顶部（不是文档顶部）的距离
+
+有`left、top、right、bottom `四个属性
+
+## 为什么await和async能够实现异步请求同步执行？
+
+`Generator` 的语法糖
 

@@ -144,3 +144,4 @@ ie9识别在属性后\9\0 .background-color:#00deff\9;
 ## z-index是什么？默认值？
 
 z-index 属性设置元素的堆叠顺序，且只在属性position: relative/absolute/fixed 的时候才生效。 `z-index: auto` 是默认值，与`z-index: 0`是有区别的： `z-index: 0` 会创建一个新的堆叠上下文，而 `z-index: auto` 不会创建新的堆叠上下文
+
