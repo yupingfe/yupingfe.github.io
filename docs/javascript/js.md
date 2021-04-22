@@ -30,10 +30,10 @@ arr.unshift()
 arr.reverse()
 arr.every()
 arr.some()
-arr.forEach()
+arr.forEach() // 修改原数组
+arr.map() // 创建一个新数组，如果不return返回undefined
 arr.filter()
 arr.includes()
-arr.map()
 arr.reduce()
 arr.indexOf()
 arr.lastIndexOf() //索引正序，但是从后往前找

@@ -42,6 +42,62 @@
 2. 事件委托有对子元素的查找过程，委托层级过深，可能会有性能问题
 3. 频繁触发的事件如 mousemove、mouseout、mouseover等，不适合事件委托
 
+## 数组扁平化
+
+性能最好的是es6的**flat()**，最差的就是**while()** **reduce()**
+
+```js
+const a = [1, [2, null, [3, undefined, 4,[5]]]];
+// for循环方法
+function flat(arr) {
+  let target = []
+  for (value of arr) {
+    if (Array.isArray(value)) {
+      target = target.concat(flat(value))
+    }
+    else
+      target = target.concat(value)
+  }
+  return target
+}
+// reduce方法
+function reduceFlat(arr) {
+  return arr.reduce((result, value) => result.concat(Array.isArray(value) ? reduceFlat(value) : value), [])
+}
+// toString方法 此方法仅限处理数字，处理undefined，null为0
+console.log(a.toString().split(',').map(item => item - 0)); 
+
+// es6 flat方法 性能最佳
+console.log(a.flat(Infinity)) // 注意I大写
+```
+
+## 数组去重？
+
+```js
+// 利用indexof去重
+function distinct(arr) {
+  let targetArr = []
+  for (let i = 0; i < arr.length; i++) {
+    if(targetArr.indexOf(arr[i]) == -1) {
+      targetArr.push(arr[i])
+    }
+  }
+}
+// 利用对象名唯一， 该方法速度最快
+function distinct(arr) {
+  let targetArr = []
+  let obj = {}
+  for (let i =0; i <arr.length; i++) {
+    if (!obj[arr[i]]) {
+      obj[arr[i]] = 1;
+      targetArr.push(arr[i])
+    }
+  }
+}
+// 利用ES6 set去重
+const arr1 = Array.from(new Set(arr))
+```
+
 ## 深浅拷贝？
 
 1. 赋值运算符 `=` 实现的是浅拷贝，只拷贝对象的引用值；
@@ -80,8 +136,6 @@ console.log(targetObj);
 targetObj.d()
 ```
 
-
-
 ## 简述JS的闭包机制？
 
 1. 外层函数嵌套内层函数
@@ -109,6 +163,87 @@ for (var i = 0; i < list.length; i++) {
 ```
 
 给settimeout传递参数
+
+## 柯里化？
+
+柯里化是什么：是指这样一个函数，它接收函数 A，并且能返回一个新的函数，这个新的函数能够处理函数 A 的剩余参数。
+
+```js
+function curringAdd() {
+  let args = Array.prototype.slice.call(arguments)
+  function inner() {
+    args.push(...arguments)
+    return inner
+  }
+  inner.toString = function () {
+    return args.reduce((sum, item) => sum += item)
+  }
+  return inner
+}
+console.log(curringAdd(1)(2));
+console.log(curringAdd(1,2,3)(4));
+console.log(curringAdd(1)(2,3,4));
+```
+
+## 函数的防抖和节流？
+
+**函数防抖** 是指在事件被触发 n 秒后再执行回调，如果在这 n 秒内事件又被触发，则重新计时。这可以使用在一些点击请求的事件上，避免因为用户的多次点击向后端发送多次请求。
+
+* 给按钮添加函数防抖防止表单多次提交
+* 对输入框进行AJAX操作时，减少后端请求次数
+* 判断scroll是否到底
+* window触发resize的时候
+
+**函数节流** 是指规定一个单位时间，在这个单位时间内，只能有一次触发事件的回调函数执行，如果在同一个单位时间内某事件被触发多次，只有一次能生效。节流可以使用在 scroll 函数的事件监听上，通过事件节流来降低事件调用的频率。
+
+* 鼠标不断点击触发
+* DOM元素拖拽
+
+```js
+function debounce(fn, delay) {
+  let timer = null;
+  return function () {
+    if (timer) {
+      clearTimeout(timer)
+      timer = null
+    }
+    else {
+      timer = setTimeout(() => {
+        fn.apply(this, arguments)
+        timer = null
+      }, delay)
+    }
+  }
+}
+// 升级版：第一次点没有延迟
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    if(timer) { clearTimeout(timer) }
+    if(!timer) {
+      fn.apply(this, arguments)
+    }
+    timer = setTimeout(()=>{
+      timer = null
+    }, delay)
+  }
+}
+```
+
+```js
+function throttle(fn, delay) {
+  var begin = 0;
+  return function () {
+    var current = Date.now()
+    if(current - begin > delay) {
+      fn.apply(this, arguments)
+      begin = current
+    }
+  }
+}
+```
+
+
 
 ## 将图片转换为Base64
 
