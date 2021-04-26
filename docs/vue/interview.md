@@ -1,4 +1,4 @@
-## VUE
+## 常见面试题
 
 1. diff算法
 
@@ -92,4 +92,6 @@ hashState和popState事件来实现的
 
 19. 用过什么css动画库
 
-animate.css
+    Animate.css
+
+20. 怎么理解vue是渐进式框架？

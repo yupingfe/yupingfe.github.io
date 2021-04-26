@@ -1,4 +1,4 @@
-## CSS面试题
+# CSS面试题
 
 ## Link和@import的区别
 
@@ -24,7 +24,7 @@
 
 选择器按优先级先后排列：!important>内联>id>class = 属性 = 伪类 >标签 = 伪元素 > 通配符 *
 
-### CSS动画
+## CSS动画
 
 **Transition**
 
@@ -52,7 +52,7 @@ transition: width 2s cubic-bezier(n,n,n,n) 0;
 }
 ```
 
-### sass less的作用
+## sass less的作用
 
 CSS 是一门非程序式语言，没有变量、函数、SCOPE（作用域），需要书写大量看似没有逻辑的代码，不方便维护及扩展，不利于复用。
 
@@ -62,7 +62,7 @@ Sass是Ruby语言写的，需要先安装Ruby，比较繁琐。
 
 Less是也是CSS预处理器语言，可以在客户端或服务器端运行，帮助我们自定义，管理和重用网页的样式表，开源，不需要装Ruby。
 
-### css实现一个三角形
+## css实现一个三角形
 
 利用border即可实现。
 
@@ -79,7 +79,7 @@ div {
 
 
 
-### 清除浮动的方式
+## 清除浮动的方式
 
 利用伪元素选择器，在需要清除浮动的元素后方动态插入一个元素来实现。
 
@@ -94,7 +94,7 @@ div {
 }
 ```
 
-### CSS精灵图
+## CSS精灵图
 
 将一个页面涉及到的所有图片都包含到一张大图中去，然后利用CSS的background-image，background-repeat，background-position的组合进行背景定位。
 利用CSSSprites能很好地减少网页的http请求，从而很好的提高页面的性能；CSSSprites能减少图片的字节。
@@ -108,7 +108,7 @@ div {
   图片合并麻烦
   维护麻烦，修改一个图片可能需要重新布局整个图片，样式
 
-### rem和rpx有什么区别？为什么用？
+## rem和rpx有什么区别？为什么用？
 
 em是相对长度单位。相对于当前对象内文本的字体尺寸。如当前对行内文本的字体尺寸未被人为设置，则相对于浏览器的默认字体尺寸（16px）。 em特点
 em的值并不是固定的；
@@ -118,7 +118,7 @@ rem是CSS3新增的一个相对单位（root em，根em），这个单位与em�
 
 rpx 为小程序中使用的相对单位，用法和rem类似， 1rpx = 屏幕宽度/750 px, 所以在屏幕宽度为750的设计稿中，1rpx = 1px。
 
-### display：inline-block 有缝隙，怎么解决？
+## display：inline-block 有缝隙，怎么解决？
 
 这个是由于换行符决定的，解决：
 
@@ -126,7 +126,7 @@ rpx 为小程序中使用的相对单位，用法和rem类似， 1rpx = 屏幕�
 
 2. 使用flex布局
 
-### 有哪些布局方式？
+## 有哪些布局方式？
 
 文档流浮动布局，定位布局，`flex`布局 `Grid`布局
 
@@ -145,3 +145,62 @@ ie9识别在属性后\9\0 .background-color:#00deff\9;
 
 z-index 属性设置元素的堆叠顺序，且只在属性position: relative/absolute/fixed 的时候才生效。 `z-index: auto` 是默认值，与`z-index: 0`是有区别的： `z-index: 0` 会创建一个新的堆叠上下文，而 `z-index: auto` 不会创建新的堆叠上下文
 
+## inline-block、inline 和 block 的区别?
+
+Block 是块级元素，其前后都会有换行符，能设置宽度，高度，margin/padding 水平垂直方向都有效。
+
+Inline：设置 width 和 height 无效，margin 在竖直方向上无效，padding 在水平方向垂直方向都有效，前后无换行符
+
+Inline-block：能设置宽度高度，margin/padding 水平垂直方向 都有效，前后无换行符
+
+## 为什么 img 是 inline 还可以设置宽高？
+
+img 是可替换元素。
+
+在 CSS 中，可替换元素（replaced element）的展现效果不是由 CSS 来控制的。这些元素是一种外部对象，它们外观的渲染，是独立于 CSS 的。
+简单来说，它们的内容不受当前文档的样式的影响。CSS 可以影响可替换元素的位置，但不会影响到可替换元素自身的内容。
+典型的可替换元素有：`<iframe> <video> <embed> <img>`
+CSS 的 content 属性用于在元素的 ::before 和 ::after 伪元素中插入内容。使用 content 属性插入的内容都是匿名的可替换元素。
+
+## CSS3的新特性
+
+1. 伪类选择器
+
+   ```css
+   :first-child; :last-child; nth-child(n);
+   ::before; ::after
+   :first-letter; :first-line
+   ```
+
+2. 背景边框颜色透明度
+
+   ```css
+   background-size; background-origin;
+   border-radius; border-image;
+   box-shadow;
+   rgba()
+   ```
+
+3. 文字效果
+
+   ```css
+   text-shadow; word-wrap;
+   ```
+
+4. 2D和3D转换
+
+   ```css
+   transform: translate(), rotate(), scale(), skew(), perspective()
+   ```
+
+5. 动画和过渡
+
+   ```css
+   aniamtion, transition
+   ```
+
+   
+
+6. 多列
+
+7. 用户界面

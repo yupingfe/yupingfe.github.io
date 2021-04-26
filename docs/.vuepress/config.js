@@ -33,12 +33,11 @@ module.exports = {
     sidebar: {
       '/htmlcss/': [
         '',
-        'css-note'
+        'interview-html',
+        'interview-css'
       ],
       '/javascript/': [
         '',
-        'js',
-        'inherit'
       ],
       '/vue/': [
         '',
@@ -46,18 +45,15 @@ module.exports = {
         'components',
         'vue-cli',
         'router',
-        'vuex'
+        'vuex',
+        'interview'
       ],
       '/others/': [
         '',
         'nodejs',
-        'interview-html',
-        'interview-css',
-        'interview-js',
-        'interview-vue',
         'interview-other',
       ]
     }, // 侧边栏配置
-    sidebarDepth: 3, // 侧边栏显示2级
+    sidebarDepth: 1, // 侧边栏显示2级
   }
 };
