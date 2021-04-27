@@ -55,5 +55,10 @@ module.exports = {
       ]
     }, // 侧边栏配置
     sidebarDepth: 1, // 侧边栏显示2级
-  }
+  },
+  plugins: [
+    ['@vuepress/search', {
+      searchMaxSuggestions: 10
+    }]
+  ]
 };

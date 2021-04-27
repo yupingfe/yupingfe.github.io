@@ -197,30 +197,20 @@ function throttle(fn, delay) {
 }
 ```
 
+## ES6有哪些新特性
 
-
-## 将图片转换为Base64
-
-```js
-function image2Base64(img) {
-    var canvas = document.createElement("canvas");
-    canvas.width = img.width;
-    canvas.height = img.height;
-    var ctx = canvas.getContext("2d");
-    ctx.drawImage(img, 0, 0, img.width, img.height);
-    var dataURL = canvas.toDataURL("image/png");
-    return dataURL;
-}
-function getImgBase64(){
-    var base64="";
-    var img = new Image();
-    img.src="img/test.jpg";
-    img.onload=function(){
-        base64 = image2Base64(img);
-        alert(base64);
-    }
-}
-```
+1. let const 块级作用域
+2. 模板字符串
+3. 解构赋值
+4. 箭头函数，函数参数默认值
+5. 扩展运算符（...）
+6. forEach for...of for...in
+7. 数组方法map reduce includes
+8. map和set数据结构
+9. 模块化
+10. promise proxy
+11. async
+12. class
 
 ## 如何实现图片的懒加载？
 
@@ -300,25 +290,30 @@ arr.pop()
 arr.shift()
 arr.unshift()
 arr.reverse()
-arr.every()
-arr.some()
+
 arr.forEach() // 修改原数组
 arr.map() // 创建一个新数组，如果不return返回undefined
+arr.every()
+arr.some()
 arr.filter()
-arr.includes()
 arr.reduce()
-arr.indexOf()
-arr.lastIndexOf() //索引正序，但是从后往前找
+
+arr.includes()
+arr.indexOf() // 返回索引，没有返回-1
+arr.lastIndexOf() //从后往前找，返回正序索引
+arr.find(element => element > 10))  //找满足条件的元素
 arr.findIndex() //找索引
-arr.find()  //找满足条件的元素
-arr.join()//默认以逗号隔开
-arr.join(' ')//无缝链接 将数组元素拼接成字符串
+
+arr.concat()
 arr.slice(1,2)//截取数组的一部分，不包含头部，包含尾部，返回新数组
 arr.splice(1,4) //从索引1开始删除4个元素,第二个是要删除的长度，第三个往后是要添加的元素，修改原数组
 arr.splice(2,0,'i') //从索引2开始，删除0个，加入一个’i‘
 arr.aplice(3,1,'o','i')//从索引3开始，删除1个，添加两个字符串。
-arr.flat() //数组降维 ，返回新数组
-arr.flat(1)
+
+arr.join(separator)//转字符串，默认以逗号隔开
+arr.join('')//无缝链接字符串
+
+arr.flat(1) //数组降维 ，返回新数组
 arr.flat(Infinity)
 arr.entries() //将数组返回一个对象，包含对象索引的键值对
 ```
@@ -520,29 +515,74 @@ console.log(peggy instanceOf Pig) // true
 console.log(peggy instanceOf Animal) // true
 ```
 
+## gulp常用的插件
+
+gulp-sass  将scss文件转为css
+
+gulp-autoprefixer 为css添加浏览器前缀
+
+gulp-open 默认浏览器打开指定页面
+
+gulp-htmlmin 最小化html文件
+
+gulp-minify-css 最小化css（gulp-clean-css也是）
+
+gulp-uglify 混淆js文件
+
+gulp-concat 合并js,css文件
+
+## 实现打印1-100数字，对第n个数字停顿n秒？
+
+```js
+var isDone = true
+function printNum() {
+  var time = 0;
+  return function () {
+    isDone = false
+    time++
+    setTimeout(() => {
+      console.log(time);
+      isDone = true
+    }, time * 1000);
+  }
+}
+var myPrintNum = printNum()
+setInterval(() => {
+  if (isDone) {myPrintNum()}
+}, 1000);
+```
 
 
-### 原型链
 
-1. webpack设置
-2. gulp常用的插件
-3. 拖拽用到哪些事件
-4. ES6有哪些新特性
-   1. 箭头函数
-5. 解决异步的方法，除了`promise/async`你还知道那些？
-6. JS适合面向对象还是过程？
-7. 给一个按钮绑定两个`onclick`事件
-9. 封装vue组建双向数据绑定的原理
-10. 数组去重
-11. 数组方法
-12. 怎么获取时间？怎么判断指定时间提示信息？
-13. Cookie和LS除了大小区别还有什么不同？
-    1. Cookie属性？
-14. `let const var`区别？
-15. `httponly`知道不？
-16. 继承
-17. 必包
-18. 数组遍历的方式？`for foreach map`的区别
-19. 实现打印1-100数字，对第n个数字停顿n秒？
-20. call和apply区别
+## JSONP?
+
+script标签不遵循同源协议，可以用来进行**跨域请求**，优点就是兼容性好但仅限于GET请求。
+
+但AJAX和JSONP其实本质上是不同的东西。**AJAX的核心是通过`XmlHttpRequest`获取非本页内容，而JSONP的核心则是动态添加`<script>`标签来调用服务器提供的js脚本。**
+
+## Ajax
+
+```js
+const getJSON = function(url) {
+  return new Promise((resolve, reject) => {
+    const xhr = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Mscrosoft.XMLHttp');
+    xhr.open('GET', url, false);
+    xhr.setRequestHeader('Accept', 'application/json');
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState !== 4) return;
+      if (xhr.status === 200 || xhr.status === 304) {
+        resolve(xhr.responseText);
+      } else {
+        reject(new Error(xhr.responseText));
+      }
+    }
+    xhr.send();
+  })
+}
+```
+
+还可以用`fetch()`
+
+1. 怎么获取时间？怎么判断指定时间提示信息？
+2. `httponly`知道不？
 
