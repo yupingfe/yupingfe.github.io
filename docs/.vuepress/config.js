@@ -1,3 +1,4 @@
+const moment = require('moment');
 module.exports = {
   title: 'Cyan\'s note',
   description: 'cyan的技术博客',
@@ -8,6 +9,7 @@ module.exports = {
   markdown: {
     lineNumbers: false // 代码块显示行号
   },
+  serviceWorker: true,
   themeConfig: {
     smoothScroll: true,
     nav:[ // 导航栏配置
@@ -55,10 +57,25 @@ module.exports = {
       ]
     }, // 侧边栏配置
     sidebarDepth: 1, // 侧边栏显示2级
+    // 默认值是 true 。设置为 false 来禁用所有页面的 下一篇 链接
+    nextLinks: false,
+    // 默认值是 true 。设置为 false 来禁用所有页面的 上一篇 链接
+    prevLinks: false,
+    lastUpdated: '最后更新', // string | boolean
   },
   plugins: [
     ['@vuepress/search', {
       searchMaxSuggestions: 10
-    }]
+    }],
+    [
+      '@vuepress/last-updated',
+      {
+        transformer: (timestamp, lang) => {
+          const moment = require('moment')
+          moment.locale('zh-CN')
+          return moment(timestamp).fromNow()
+        }
+      }
+    ]
   ]
 };

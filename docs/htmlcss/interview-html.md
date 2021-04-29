@@ -1,5 +1,5 @@
 # HTML面试题
-
+[[toc]]
 ## 盒子模型阐述
 
 W3C标准盒：属性width,height只包含内容content，不包含border和padding
@@ -36,15 +36,14 @@ box-sizing: border-box; /* IE盒 */
    - 503 服务器暂时处于超负载或正在进行停机维护，现在无法处理请求。
    - 504 响应超时
 
-## HTML5有哪些新特性？移除了哪些元素？如何处理HTML新标签的兼容性问题？去和区分HTML和HTML5?
+## HTML5有哪些新特性？
+移除了哪些元素？如何处理HTML新标签的兼容性问题？去和区分HTML和HTML5?
 
-
-
-[html5新特性]: https://www.cnblogs.com/ainyi/p/9777841.html
-
-移除的元素
-
+::: tip
+[HTML5新特性](https://www.cnblogs.com/ainyi/p/9777841.html)
+:::
 ```
+移除的元素
 <basefont> <font> <center> <u> <strike> <tt>
 ```
 

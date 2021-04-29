@@ -1,5 +1,5 @@
 # CSS面试题
-
+[[toc]]
 ## Link和@import的区别
 
 1. link 是 HTML 标签，不仅可以加载 CSS 文件，还可以定义 RSS、rel 连接属性等；
