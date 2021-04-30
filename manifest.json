@@ -1,0 +1,7 @@
+{
+  "name": "Cyan's Blog",
+  "short_name": "Cyan's Blog",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "Cyan's blog app."
+}
