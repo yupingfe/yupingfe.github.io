@@ -21,10 +21,9 @@ export default {
     async getIpAdress() {
       const res = await fetch('https://ipapi.co/json/')
       const resp = await res.json()
-      const {ip, region} = resp
+      this.ip = resp.ip
+      this.region = resp.region
       console.log(resp);
-      this.ip = ip
-      this.region = region
     }
   }
 }

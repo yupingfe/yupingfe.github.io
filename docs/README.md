@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: /icon.jpg
+heroImage: /icon.png
 actionText: 打个Call →
 actionLink: tel:+8618031070053
 # features:
@@ -8,5 +8,4 @@ actionLink: tel:+8618031070053
 #   details: 以 Mark结构，以最少的配置帮助你专注于写作。
 footer: MIT Licensed | Copyright © CYAN
 ---
-
 <GetIp />
