@@ -17,10 +17,9 @@ export default {
       el: "#vcomments",
       appId: "uQlkXCJ6JMPT69J972o38X8L-MdYXbMMI", // your appId
       appKey: "Huhx2YW3euF2tCXXzzDtdcMe", // your appKey
-      notify: false,
-      verify: false,
       avatar: "mm",
-      placeholder: "leave your comment here",
+      placeholder: "留个评论吧",
+      visitor: true,
     });
   },
 };

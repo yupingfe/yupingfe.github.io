@@ -38,6 +38,10 @@ module.exports = {
         text: 'Others', 
         link: '/others/'
       },
+      {
+        text: 'Comments', 
+        link: '/comments/'
+      },
       {text: 'Github', link: 'https://github.com/zoutianwei'}      
     ],
     sidebar: {
