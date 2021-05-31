@@ -1,6 +1,6 @@
 const moment = require('moment');
 module.exports = {
-  title: 'Cyan\'s note',
+  title: 'Cyan\'s Blog',
   description: 'cyan的技术博客',
   head: [ // 注入到当前页面的 HTML <head> 中的标签
     ['link', { rel: 'icon', href: '/icon.png' }], // 增加一个自定义的 favicon(网页标签的图标)
@@ -73,13 +73,13 @@ module.exports = {
     nextLinks: false,
     // 默认值是 true 。设置为 false 来禁用所有页面的 上一篇 链接
     prevLinks: false,
-    lastUpdated: '最后更新', // string | boolean
+    // lastUpdated: '最后更新', // string | boolean
   },
   plugins: [
     ['@vuepress/search', {
       searchMaxSuggestions: 10
     }],
-    [
+    /* [
       '@vuepress/last-updated',
       {
         transformer: (timestamp, lang) => {
@@ -88,7 +88,7 @@ module.exports = {
           return moment(timestamp).fromNow()
         }
       }
-    ],
+    ], */
     ['@vuepress/pwa', {
       serviceWorker: true,
       updatePopup: true
