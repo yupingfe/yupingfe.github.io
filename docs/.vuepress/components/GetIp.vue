@@ -1,13 +1,22 @@
 <template>
   <div class="container">
     <div class="main">
-      <div class="title">Welcome to Cyan's blog</div>
-      <div class="motto">{{ messageZh }}</div>
-      <div class="motto">{{ message }}</div>
+      <transition name="fade">
+        <div class="greeting" v-if="message">
+          <div class="title">Welcome</div>
+          <div class="motto" v-if="messageZh">{{ messageZh }}</div>
+          <div class="motto" v-if="message != messageZh">{{ message }}</div>
+        </div>
+      </transition>
     </div>
     <div class="ip">
-      位置：{{ region }}<br />
-      你的IP地址：{{ ip }}
+      <transition name="fade">
+        <span v-if="region">位置：{{ region }}</span>
+      </transition>
+      <br />
+      <transition name="fade">
+        <span v-if="ip"> 你的IP地址：{{ ip }}</span>
+      </transition>
     </div>
   </div>
 </template>
@@ -75,11 +84,17 @@ export default {
   margin-bottom: 1.2rem;
   font-weight: 700;
 }
-.main .title {
-}
+
 .ip {
   text-align: center;
   margin-bottom: 20px;
   color: #4e6e8e;
+}
+/* 动画 */
+.fade-enter-active {
+  transition: opacity 1s;
+}
+.fade-enter {
+  opacity: 0;
 }
 </style>
