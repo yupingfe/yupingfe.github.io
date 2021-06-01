@@ -2,7 +2,8 @@
   <div class="container">
     <div class="main">
       <div class="title">Welcome to Cyan's blog</div>
-      <div class="motto">来杯咖啡☕? 带给你好心情</div>
+      <div class="motto">{{ messageZh }}</div>
+      <div class="motto">{{ message }}</div>
     </div>
     <div class="ip">
       位置：{{ region }}<br />
@@ -18,17 +19,21 @@ export default {
     return {
       ip: "",
       region: "",
+      message: "",
+      messageZh: "",
     };
   },
   created() {
     this.getIpAdress();
-    // this.getMotto(); TODO: 把后台接口写好，实现每日一句。
+    this.getMotto();
   },
   methods: {
     async getMotto() {
-      const res = await fetch("https://wx.starbucks.com.cn/api/hello");
+      const res = await fetch("https://starbucks-proxy.vercel.app/");
       const resp = await res.json();
-      console.log(resp);
+      console.log(resp.data.messageZh);
+      this.message = resp.data.message;
+      this.messageZh = resp.data.messageZh;
     },
     async getIpAdress() {
       const res = await fetch("https://ipapi.co/json/");
@@ -53,7 +58,8 @@ export default {
   height: calc(100vh - 3.6rem);
   /* width: calc(100vw - 15px); */
   width: 100vw;
-  background: url("../public/bg.svg") 50% / cover no-repeat;
+  background: url("../public/bg.svg") no-repeat;
+  background-size: 100% 100%;
   /* border: 1px solid red; */
   /* background: olive; */
   display: flex;
