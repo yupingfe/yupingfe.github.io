@@ -12,7 +12,11 @@
     </div>
     <transition name="fade">
       <div class="foot" v-if="message">
-        <div>{{ browser }} {{ system }} {{ systemVs }}</div>
+        <div>
+          {{ browser != "unknown" ? browser : "" }}
+          {{ system != "unknown" ? system : "" }}
+          {{ systemVs != "unknown" ? systemVs : "" }}
+        </div>
         <div>Location:{{ region }}</div>
         <div>
           <span v-if="ipVersion === 'IPv4'">Your IP:</span>{{ ip }}({{
@@ -25,7 +29,8 @@
 </template>
 
 <script>
-import ua from "../public/ua";
+import ua from "../public/ua"; // 浏览器UA判断组件
+import fetch from "node-fetch"; // 必须引入fetch，不然build时候会报错fetch undefined
 export default {
   name: "Home",
   data() {
@@ -43,6 +48,9 @@ export default {
   created() {
     this.getIpAdress();
     this.getMotto();
+  },
+  mounted() {
+    // 必须在mounted中写，否则报错找不到window对象
     this.browser = ua().browser;
     this.systemVs = ua().systemVs;
     this.system = ua().system;

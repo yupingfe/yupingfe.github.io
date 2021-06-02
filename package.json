@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "moment": "^2.29.1",
+    "node-fetch": "^2.6.1",
     "valine": "^1.4.14"
   }
 }
