@@ -11,11 +11,11 @@
     </div>
     <div class="ip">
       <transition name="fade">
-        <span v-if="region">位置：{{ region }}</span>
+        <span v-if="region">Location:{{ region }}</span>
       </transition>
       <br />
       <transition name="fade">
-        <span v-if="ip"> 你的IP地址：{{ ip }}</span>
+        <span v-if="ip"> Your IP:{{ ip }}({{ ipVersion }})</span>
       </transition>
     </div>
   </div>
@@ -28,6 +28,7 @@ export default {
     return {
       ip: "",
       region: "",
+      ipVersion: "",
       message: "",
       messageZh: "",
     };
@@ -49,6 +50,7 @@ export default {
       const resp = await res.json();
       this.ip = resp.ip;
       this.region = resp.region;
+      this.ipVersion = resp.version;
       console.log(resp);
     },
   },
