@@ -1,6 +1,9 @@
 <template>
   <div class="container">
     <div class="main">
+      <div class="greeting" v-if="!message">
+        <div class="cn-title">加载中...</div>
+      </div>
       <transition name="fade">
         <div class="greeting" v-if="message">
           <div class="cn-title">欢迎</div>
