@@ -3,27 +3,31 @@
     <div class="main">
       <transition name="fade">
         <div class="greeting" v-if="message">
-          <div class="title">Welcome</div>
+          <div class="cn-title">欢迎</div>
+          <div class="en-title">Welcome</div>
           <div class="motto" v-if="messageZh">{{ messageZh }}</div>
           <div class="motto" v-if="message != messageZh">{{ message }}</div>
         </div>
       </transition>
     </div>
-    <div class="ip">
-      <transition name="fade">
-        <span v-if="region">Location:{{ region }}</span>
-      </transition>
-      <br />
-      <transition name="fade">
-        <span v-if="ip"> Your IP:{{ ip }}({{ ipVersion }})</span>
-      </transition>
-    </div>
+    <transition name="fade">
+      <div class="foot" v-if="message">
+        <div>{{ browser }} {{ system }} {{ systemVs }}</div>
+        <div>Location:{{ region }}</div>
+        <div>
+          <span v-if="ipVersion === 'IPv4'">Your IP:</span>{{ ip }}({{
+            ipVersion
+          }})
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
+import ua from "../public/ua";
 export default {
-  name: "GetIp",
+  name: "Home",
   data() {
     return {
       ip: "",
@@ -31,11 +35,17 @@ export default {
       ipVersion: "",
       message: "",
       messageZh: "",
+      browser: "",
+      systemVs: "",
+      system: "",
     };
   },
   created() {
     this.getIpAdress();
     this.getMotto();
+    this.browser = ua().browser;
+    this.systemVs = ua().systemVs;
+    this.system = ua().system;
   },
   methods: {
     async getMotto() {
@@ -81,16 +91,29 @@ export default {
   margin: auto;
   text-align: center;
 }
-.main .title {
+.main .cn-title,
+.main .en-title {
   font-size: 2rem;
-  margin-bottom: 1.2rem;
   font-weight: 700;
 }
+.main .en-title {
+  margin-bottom: 1.2rem;
+}
 
-.ip {
-  text-align: center;
-  margin-bottom: 20px;
+.foot {
   color: #4e6e8e;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.foot div {
+  margin: 0 0.3rem;
+}
+@media (max-width: 500px) {
+  .foot {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 /* 动画 */
 .fade-enter-active {

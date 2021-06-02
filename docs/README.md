@@ -11,4 +11,4 @@ tagline: null
 footer: null
 ---
 
-<GetIp />
+<Home />
