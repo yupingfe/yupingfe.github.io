@@ -201,6 +201,65 @@ const App = new Vue ({
 })
 ```
 
+#### .sync修饰符
+
+.sync修饰符可以省去父组件绑定子组件的触发事件。
+
+使用：
+
+1. 直接在父组件添加.sync修饰符`:title.sync='title'`
+
+2. 在子组件触发函数的时添加update:关键字`this.$emit('update: title', value)`
+
+example如下：
+
+```html
+<div id="father">
+  <h2>{{title}}</h2>
+  <son-com :title.sync="title"></son-com>
+</div>
+<template id="son-com" >
+  <div style="border: 1px dashed black; padding: 5px;">
+    <p>子组件</p>
+    <p>{{inputVal}}</p>
+    <input type="text" v-model="inputVal" placeholder="enter title">
+    <button @click="changeTitle">change</button>
+  </div>
+</template>
+```
+
+```js
+
+const sonCom = {
+        template: "#son-com",
+        props: ['title'],
+        data() {
+          return {
+            inputVal: ''
+          }
+        },
+        methods: {
+          changeTitle() {
+            this.$emit('update:title', this.inputVal)
+          }
+        }
+      };
+
+const app = new Vue({
+  el: "#father",
+  data() {
+    return {
+      title: "父组件的标题",
+    };
+  },
+  components: {
+    sonCom,
+  },
+});
+```
+
+
+
 ## 兄弟通信（eventBus）
 
 兄弟组件之间的通信使用eventBus
