@@ -1,24 +1,43 @@
 # CSS面试题
 [[toc]]
+
+## 盒子模型阐述
+
+W3C标准盒：属性width,height只包含内容content，不包含border和padding
+
+IE盒模型：属性width,height包含border和padding，指的是content+padding+border
+
+```css
+box-sizing: content-box; /* 标准盒 */
+box-sizing: border-box; /* IE盒 */
+```
+
 ## Link和@import的区别
+
+```html
+<link rel="stylesheet" href="style.css">
+<style>
+    @import url(style.css);
+</style>
+```
 
 1. link 是 HTML 标签，不仅可以加载 CSS 文件，还可以定义 RSS、rel 连接属性等；
 
-   @import 是 CSS 提供的语法，只有导入样式表的作用。
+   @import 是 CSS2.1提供的语法，**只有导入样式表的作用。**
 
 2. 加载页面时，link 标签引入的 CSS 被同时加载；
 
-   @import 引入的 CSS 将在页面加载完毕后被加载。
+   @import 引入的 CSS 将在**页面加载完毕**后被加载。
 
-3. @import 是 CSS2.1 才有的语法，故只可在 IE5+ 才能识别；
+3. @import 是 **CSS2.1** 才有的语法，故只可在 IE5+ 才能识别；
 
    link 标签作为 HTML 元素，不存在兼容性问题。
 
 4. 可以通过 JS 操作 DOM ，插入 link 标签来改变样式；
 
-   由于 DOM 方法是基于文档的，无法使用@import 的方式插入样式。
+   JS无法用@import 的方式插入样式。
 
-5. link 引入的样式权重大于@import 引入的样式。
+5. link 引入的样式**权重大**于@import 引入的样式。
 
 ## CSS选择器优先级
 
@@ -149,7 +168,7 @@ z-index 属性设置元素的堆叠顺序，且只在属性position: relative/ab
 
 Block 是块级元素，其前后都会有换行符，能设置宽度，高度，margin/padding 水平垂直方向都有效。
 
-Inline：设置 width 和 height 无效，margin 在竖直方向上无效，padding 在水平方向垂直方向都有效，前后无换行符
+Inline：设置 width 和 height 无效，margin 在竖直方向上无效，padding有效，前后无换行符
 
 Inline-block：能设置宽度高度，margin/padding 水平垂直方向 都有效，前后无换行符
 

@@ -1,16 +1,5 @@
 # HTML面试题
 [[toc]]
-## 盒子模型阐述
-
-W3C标准盒：属性width,height只包含内容content，不包含border和padding
-
-IE盒模型：属性width,height包含border和padding，指的是content+padding+border
-
-```css
-box-sizing: content-box; /* 标准盒 */
-box-sizing: border-box; /* IE盒 */
-```
-
 ## HTTP状态码
 
 1. 1XX 信息性状态码
@@ -36,16 +25,103 @@ box-sizing: border-box; /* IE盒 */
    - 503 服务器暂时处于超负载或正在进行停机维护，现在无法处理请求。
    - 504 响应超时
 
+## meta标签的组成
+
+metadata用于构建HTML文档的基本结构，处理文档向浏览器提供信息和指示，他本身不是文档的内容。
+
+meta元素包含四大属性：`charset; content; http-equiv; name`
+
+`charset` 声明页面的字符编码：常见值:`UTF-8` Unicode字符编码
+
+```html
+<!-- 声明网页编码 -->
+<meta http-equiv="content-Type" content="text/html;charset=utf-8">
+<!-- HTML5声明网页编码 -->
+<meta charset="utf-8" >
+```
+
+`content` 配合`name`或者`http-equiv`使用，给这两个属性提供值
+
+`http-equiv` 用作模拟HTTP头部，改变服务器和用户代理行为。HTML5中只有`refres; default-style; content-type`可用
+
+`name`定义页面的元数据，和`content`搭配使用
+
+```html
+<!-- 声明文档使用的字符编码 -->
+<meta charset='utf-8'>
+<!-- 优先使用 IE 最新版本和 Chrome -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<!-- 页面描述 -->
+<meta name="description" content="不超过150个字符"/>
+<!-- 页面关键词 -->
+<meta name="keywords" content=""/>
+<!-- 网页作者 -->
+<meta name="author" content="name, email@gmail.com"/>
+<!-- 搜索引擎抓取 -->
+<meta name="robots" content="index,follow"/>
+<!-- 为移动设备添加 viewport -->
+<meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+
+<!-- iOS 设备 begin -->
+<meta name="apple-mobile-web-app-title" content="标题">
+<!-- 添加到主屏后的标题（iOS 6 新增） -->
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<!-- 是否启用 WebApp 全屏模式，删除苹果默认的工具栏和菜单栏 -->
+```
+
+
+
 ## HTML5有哪些新特性？
-移除了哪些元素？如何处理HTML新标签的兼容性问题？去和区分HTML和HTML5?
+
+1. 语义化标签
+
+```html
+<!--新增标签 -->
+<header/>
+<nav/>
+<article/>
+<main/><aside/>
+<detail/>
+<section/>
+<figure/>
+<figcaption/>
+<mark/>
+<time/>
+<summary/>
+<footer/>
+```
+
+2. LocalStorage, SessionStorage
+3. 音频、视频API
+4. Canvas API
+5. [拖放API](https://developer.mozilla.org/zh-CN/docs/Web/API/HTML_Drag_and_Drop_API)
+
+移除了哪些标签？
+
+```html
+<!-- 移除的元素 -->
+<basefont> <font> <center> <u> <strike> <tt>
+```
+
+**如何区分HTML和HTML5?**
+
+```html
+<!--HTML4 -->
+<! DOCTYPE html PUBLIC “-//W3C//DTD XHTML 4.0 Transitional//EN” “http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd”>
+<!-- HTML5 -->
+<!DOCTYPE html>
+```
+
+**如何处理HTML新标签的兼容性问题？**
+
+```html
+<!-- 引入即可 -->
+<script src="js/html5shiv.js"></script>
+```
 
 ::: tip
 [HTML5新特性](https://www.cnblogs.com/ainyi/p/9777841.html)
 :::
-```
-移除的元素
-<basefont> <font> <center> <u> <strike> <tt>
-```
 
 ## 浏览器缓存有哪些？通常缓存有哪几种？
 
@@ -89,11 +165,21 @@ box-sizing: border-box; /* IE盒 */
 ## 跨域问题
 
 1. 同源策略
-2. 正反向代理怎么设置？
 
-## http无状态
+   **同源策略**用于限制一个[origin](https://developer.mozilla.org/zh-CN/docs/Glossary/Origin)的文档或者它加载的脚本如何能与另一个源的资源进行交互。它能帮助阻隔恶意文档，减少可能被攻击的媒介。
 
+   如果两个 URL 的 [协议(protocol)](https://developer.mozilla.org/zh-CN/docs/Glossary/Protocol)、[端口(port)](https://developer.mozilla.org/en-US/docs/Glossary/Port) (如果有指定的话)和 [主机名(host)](https://developer.mozilla.org/zh-CN/docs/Glossary/Host) 都相同的话，则这两个 URL 是*同源*
 
+2. 解决方案
+
+   1. JSONP
+   2. document.domin+iframe(仅限主域相同，子域不同)
+   3. postMessage
+   4. CORS
+   5. vue cli当中设置webpack config
+   6. websocket
 
 ## 减少http请求次数，具体有哪些做法？
+
+
 

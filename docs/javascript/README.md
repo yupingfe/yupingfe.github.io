@@ -1,4 +1,5 @@
-# JS
+
+
 [[toc]]
 ## 数组扁平化
 
@@ -216,6 +217,10 @@ function throttle(fn, delay) {
   }
 }
 ```
+
+::: tip
+lodash有[debounce](https://www.lodashjs.com/docs/lodash.debounce)和[throttle](https://www.lodashjs.com/docs/lodash.throttle)函数可用。
+:::
 
 ## ES6有哪些新特性
 
@@ -578,6 +583,18 @@ console.log(jerry instanceof Animal) // true
 
 调用了两次父类构造函数，生成了两份实例，影响性能
 
+### Object.create()继承
+
+```js
+function Snake(name, age) {
+  Animal.call(this, name, age)
+} 
+Snake.prototype = Object.create(Animal.prototype) // 使用已有对象来创建
+Snake.prototype.constructor = Snake
+```
+
+可以减少一次实例创建，提高性能。
+
 ### 寄生组合继承
 
 解决上述缺点，堪称完美，缺点就是实现比较复杂。
@@ -610,7 +627,7 @@ function Cat(name) {
 1. 效率低，占用内存高
 2. 无法获取父类不可枚举的方法（无法用for in访问的方法）
 
-### ES6继承(语法糖)
+### ES6继承 (语法糖)
 
 关键字extends和super
 
@@ -625,6 +642,26 @@ peggy.say()
 console.log(peggy instanceOf Pig) // true
 console.log(peggy instanceOf Animal) // true
 ```
+
+### 多继承
+
+使用`Object.assign()`实现多继承，混入。	`Object.assign`会把  `OtherSuperClass`原型上的函数拷贝到 `MyClass`原型上，使 MyClass 的所有实例都可用 OtherSuperClass 的方法。Object.assign 是在 ES2015 引入的。
+
+```js
+function MyClass() {
+     SuperClass.call(this);
+     OtherSuperClass.call(this);
+}
+// 继承一个类
+MyClass.prototype = Object.create(SuperClass.prototype);
+// 混合其它
+Object.assign(MyClass.prototype, OtherSuperClass.prototype);
+// 重新指定constructor
+MyClass.prototype.constructor = MyClass;
+
+```
+
+[他人总结：JavaScript常见的六种继承方式](https://segmentfault.com/a/1190000016708006)
 
 ## gulp常用的插件
 
@@ -677,14 +714,14 @@ script标签不遵循同源协议，可以用来进行**跨域请求**，优点�
 const getJSON = function(url) {
   return new Promise((resolve, reject) => {
     const xhr = XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Mscrosoft.XMLHttp');
-    xhr.open('GET', url, false);
-    xhr.setRequestHeader('Accept', 'application/json');
+    xhr.open('GET', url, true);
+    //xhr.setRequestHeader('Accept', 'application/json');
     xhr.onreadystatechange = function() {
-      if (xhr.readyState !== 4) return;
-      if (xhr.status === 200 || xhr.status === 304) {
-        resolve(xhr.responseText);
+      if (this.readyState !== 4) return;
+      if (this.status === 200 || this.status === 304) {
+        resolve(this.responseText);
       } else {
-        reject(new Error(xhr.responseText));
+        reject(new Error(this.responseText));
       }
     }
     xhr.send();
@@ -695,5 +732,24 @@ const getJSON = function(url) {
 还可以用`fetch()`
 
 1. 怎么获取时间？怎么判断指定时间提示信息？
-2. `httponly`知道不？
+
+## 页面滚动触底
+
+```js
+// 滚动视口高度(也就是当前元素的真实高度)
+let scrollHeight =
+    document.documentElement.scrollHeight ||
+    document.body.scrollHeight;
+// 可见区域高度
+let clientHeight =
+    window.innerHeight ||
+    document.documentElement.clientHeight
+// 滚动条顶部到浏览器顶部高度
+let scrollTop =
+    window.pageYOffset ||
+    document.documentElement.scrollTop
+if (clientHeight + scrollTop >= scrollHeight) {
+  console.log('触底');
+}
+```
 

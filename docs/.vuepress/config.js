@@ -42,6 +42,7 @@ module.exports = {
         text: 'Comments', 
         link: '/comments/'
       },
+      {text: 'Games', link: 'https://zoutianwei.github.io/alpha-game'},      
       {text: 'Github', link: 'https://github.com/zoutianwei'}      
     ],
     sidebar: {

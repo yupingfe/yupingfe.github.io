@@ -8,36 +8,63 @@
 ```
 
 ```js
-var obj = {}
-obj.data = ''
+var data = {
+  msg: ""
+};
+let vm = {};
 
-Object.defineProperty(obj, '$data', {
-  get () {
-    return obj.data
+Object.defineProperty(vm, "msg", {
+  get() {
+    return data.msg;
   },
-  set (value) {
-    obj.data = value 
-    setTitleTxt() // 拦截setter，让每次赋值时候自动操作DOM
+  set(value) {
+    console.log("set");
+    data.msg = value;
+    setTitleTxt(); // 拦截setter，让每次赋值时候自动操作DOM
   }
-})
-setTitleTxt()
+});
+setTitleTxt();
 // 根据model当中data的值，操作DOM设置title
-function setTitleTxt () {
-  document.querySelector('#title').innerHTML = obj.$data
-  document.querySelector('#myinput').value = obj.$data
+function setTitleTxt() {
+  document.querySelector("#title").innerHTML = data.msg;
+  document.querySelector("#myinput").value = data.msg;
 }
 // 监听input的值改变并将其赋值给model当中的data
-function getInputTxt () {
-  document.querySelector('#myinput').addEventListener('keyup', function () {
-    obj.$data = this.value
-  })
+function getInputTxt() {
+  document.querySelector("#myinput").addEventListener("keyup", function () {
+    vm.msg = this.value;
+  });
 }
-getInputTxt()
+getInputTxt();
 ```
 
 Vue2用到`defineProperty`，因此只能在IE8 (9)以上使用
 
-Vue3当中使用的是Proxy对象
+Vue3当中使用的是`Proxy`对象
+
+```js
+// 模拟vue中的data
+let data = {
+  msg: "hello",
+  count: 0
+};
+const vm = new Proxy(data, {
+  get(target, key) {
+    console.log(`get, key: ${key}, val:${target[key]}`);
+  },
+  set(target, key, newVal) {
+    console.log(`set key:${key}, oldVal:${target[key]}, newVal: ${newVal}`);
+    if (target[key] !== newVal) {
+      target[key] = newVal;
+      console.log("更改页面上的数值");
+    };
+  }
+});
+```
+
+
+
+
 
 ## 差值表达式和指令
 

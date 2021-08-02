@@ -1,11 +1,11 @@
 <template>
   <div class="container">
     <div class="main">
-      <div class="greeting" v-if="!message">
+      <div class="greeting" v-if="!ip">
         <div class="cn-title">加载中...</div>
       </div>
       <transition name="fade">
-        <div class="greeting" v-if="message">
+        <div class="greeting" v-if="ip">
           <div class="cn-title">欢迎</div>
           <div class="en-title">Welcome</div>
           <div class="motto" v-if="messageZh">{{ messageZh }}</div>
@@ -14,15 +14,15 @@
       </transition>
     </div>
     <transition name="fade">
-      <div class="foot" v-if="message">
+      <div class="foot" v-if="ip">
         <div>
           {{ browser != "unknown" ? browser : "" }}
           {{ system != "unknown" ? system : "" }}
           {{ systemVs != "unknown" ? systemVs : "" }}
         </div>
-        <div>Location:{{ region }}</div>
+        <div>Location: {{ region }}</div>
         <div>
-          <span v-if="ipVersion === 'IPv4'">Your IP:</span>{{ ip }}({{
+          <span v-if="ipVersion === 'IPv4'">Your IP: </span>{{ ip }}({{
             ipVersion
           }})
         </div>
@@ -50,7 +50,7 @@ export default {
   },
   created() {
     this.getIpAdress();
-    this.getMotto();
+    // this.getMotto();
   },
   mounted() {
     // 必须在mounted中写，否则报错找不到window对象
@@ -59,20 +59,19 @@ export default {
     this.system = ua().system;
   },
   methods: {
-    async getMotto() {
+    /* async getMotto() {
       const res = await fetch("https://starbucks-proxy.vercel.app/");
       const resp = await res.json();
       console.log(resp.data.messageZh);
       this.message = resp.data.message;
       this.messageZh = resp.data.messageZh;
-    },
+    }, */
     async getIpAdress() {
       const res = await fetch("https://ipapi.co/json/");
       const resp = await res.json();
       this.ip = resp.ip;
       this.region = resp.region;
       this.ipVersion = resp.version;
-      console.log(resp);
     },
   },
 };
