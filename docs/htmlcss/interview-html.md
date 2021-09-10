@@ -123,6 +123,63 @@ meta元素包含四大属性：`charset; content; http-equiv; name`
 [HTML5新特性](https://www.cnblogs.com/ainyi/p/9777841.html)
 :::
 
+## HTTP缓存
+
+**缓存分类**
+
+- 强缓存
+- 协商缓存
+
+1. 当客户端请求某个资源时，会先根据这个资源的 http header 判断它是否命中强缓存，如果命中，则直接从**本地**获取缓存资源，不会发请求到服务器。
+2. 当没有命中强缓存时，客户端会发送请求到服务器，服务器通过 request header 验证这个资源是否命中协商缓存，如果命中，服务器将返回 304，告诉客户端从缓存中获取。
+3. 当协商缓存也没命中时，服务器就会将资源返回客户端。
+
+- 当 F5 刷新网页时，跳过强缓存，但是会检查协商缓存
+- 当 CTRL+F5 强制刷新网页时，直接从服务器加载，跳过强缓存和协商缓存
+
+**强缓存**
+
+- `Expires`（是 http1.0 时的规范，值为一个绝对时间的 GMT 格式的时间字符串，代表缓存资源的过期时间）
+- `Cache-Control:max-age`（是 http1.1的规范，强缓存利用其 max-age 值来判断缓存资源的最大生命周期，它的值单位为秒）
+
+Cache-Control 还有一些常用**其它**属性：
+
+1. no-cache：需要进行协商缓存，发送请求到服务器确认是否使用缓存。
+2. no-store：禁止使用缓存，每一次都要重新请求数据。
+3. public：可以被所有的用户缓存，包括终端用户和CDN等中间代理服务器。
+4. private：只能被终端用户的浏览器缓存，不允许CDN等中间代理服务器对其缓存。
+
+```
+Cache-Control 与 Expires 可以在服务端配置同时启用，同时启用的时候 Cache-Control 优先级高
+强缓存缺点
+```
+
+缓存过期之后，不管资源有没有发生改变，都会重新发请求获取资源，而我们希望是在资源文件没有变化的情况下，即使过期了也不重新获取资源，继续使用旧资源，所以就有了协商缓存
+
+**协商缓存**
+
+- **Last-Modified / If-Modified-Since**
+
+`Last-Modified` 值为资源最后更新时间 `GMT 格式的时间`，随服务端 response 返回， 当浏览器再次请求该资源时，request 请求头中会包含 `If-Modified-Since`，该值为缓存之前返回的 `Last-Modified`，服务器收到 `If-Modified-Since` 后，根据资源的最后修改时间判断是否命中协商缓存。
+
+- **ETag / If-None-Match**
+
+ETag 表示资源内容的唯一标识 `一串数字码`，随服务器端 response 返回，服务器通过比较请求头部的 If-None-Match 与当前资源的 ETag 是否一致来判断资源是否在两次请求之间有过修改，如果没有修改，则命中协商缓存
+
+::: tip
+**有了 Last-Modified / If-Modified-Since 为什么还需要  ETag / If-None-Match ?** 
+
+因为如果本地打开了缓存文件，即使没有对文件进行修改或者在一定周期内做了修改又改了回来，结果都会造成 Last-Modified 被修改，服务器端不能命中缓存
+
+:::
+
+**结论**
+
+- 强缓存优先级高与协商缓存
+- 只要使用缓存，服务器均不会返回资源
+- 强缓存不会发送请求到服务器
+- 协商缓存会发送请求到服务器
+
 ## 浏览器缓存有哪些？通常缓存有哪几种？
 
 1、http缓存是基于HTTP协议的浏览器文件级缓存机制。
@@ -179,7 +236,33 @@ meta元素包含四大属性：`charset; content; http-equiv; name`
    5. vue cli当中设置webpack config
    6. websocket
 
-## 减少http请求次数，具体有哪些做法？
+## TCP三次握手和四次挥手
 
+**三次握手**
 
+| Client               | Server                                 |
+| -------------------- | -------------------------------------- |
+| SYN = 1 seq  = x     |                                        |
+|                      | ACK = 1, ack = x + 1, SYN = 1, seq = y|
+| ACK = 1, ack = y + 1 |                                        |
+| **ESTABLISHED**      | **ESTABLISHED**                        |
 
+**四次挥手**
+
+| Client                       | Server               |
+| ---------------------------- | -------------------- |
+| FIN = 1, seq = u             |                      |
+|                              | ACK = 1, ack = u + 1 |
+|                              | FIN = 1, seq = v     |
+| ACK = 1, ack =  + 1          |                      |
+| Wait 2 Max Sequence Lifetime | **CLOSED**           |
+| **CLOSED**                   |                      |
+
+**【问题1】为什么连接的时候是三次握手，关闭的时候却是四次握手？**
+答：因为当Server端收到Client端的SYN连接请求报文后，可以直接发送SYN+ACK报文。其中ACK报文是用来应答的，SYN报文是用来同步的。但是关闭连接时，当Server端收到FIN报文时，很可能并不会立即关闭SOCKET，所以只能先回复一个ACK报文，告诉Client端，"你发的FIN报文我收到了"。只有等到我Server端所有的报文都发送完了，我才能发送FIN报文，因此不能一起发送。故需要四步握手。
+
+**【问题2】为什么TIME_WAIT状态需要经过2MSL(最大报文段生存时间)才能返回到CLOSE状态？**
+
+答：虽然按道理，四个报文都发送完毕，我们可以直接进入CLOSE状态了，但是我们必须假象网络是不可靠的，有可以最后一个ACK丢失。所以TIME_WAIT状态就是用来重发可能丢失的ACK报文。
+
+[参考资料](https://blog.csdn.net/imilli/article/details/50620104)
