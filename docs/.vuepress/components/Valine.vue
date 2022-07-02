@@ -20,6 +20,7 @@ export default {
       avatar: "mm",
       placeholder: "留个评论吧",
       visitor: true,
+      serverURLs: "https://uqlkxcj6.api.lncldglobal.com"
     });
   },
 };
