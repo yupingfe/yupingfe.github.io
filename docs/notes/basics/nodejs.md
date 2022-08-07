@@ -141,7 +141,7 @@ MongoDB端口号：**27017** mySQL端口号：**3306**
 
 * show dbs 显示数据库
 * db 查看当前所在数据库 `db.getName`
-* use <db-name> 切换数据库
+* use db-name 切换数据库
 * db.createCollection(name) 创建集合
 * db.getCollectionNames  获取数据库中所有集合的名称
 * db.getCollection(cname) 根据集合名称获取对象，等于`db.<cname>`
@@ -158,7 +158,7 @@ MongoDB端口号：**27017** mySQL端口号：**3306**
   * db.stus.find()  ---查询文档
 * **Update **修改文档
   * db.stus.update(condition, doc) 
-    * <doc>当中加入`{$set:}`会保留原来未修改的数据，而不是全部覆盖。
+    * <doc />当中加入`{$set:}`会保留原来未修改的数据，而不是全部覆盖。
   * db.stus.updateOne(condition, doc)
   * db.stus.updateMany(condition, doc)  
 * **Delete**
