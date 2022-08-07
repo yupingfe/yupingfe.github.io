@@ -1,7 +1,7 @@
 {
-  "name": "Cyan's Blog",
-  "short_name": "Cyan's Blog",
+  "name": "Yuping's Note",
+  "short_name": "Yuping",
   "display": "standalone",
   "background_color": "#fff",
-  "description": "Cyan's blog app."
+  "description": "Yuping's Note"
 }
