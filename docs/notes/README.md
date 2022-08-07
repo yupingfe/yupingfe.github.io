@@ -8,7 +8,6 @@
 
 [ES6方法，必包和继承等问题](./basics/js.md)
 
-[使用nodeJs](./basics/nodejs.md)
 
 ## Vue.js Related
 [响应式原理，修饰符和事件绑定](./vue/native.md)

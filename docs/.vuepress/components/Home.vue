@@ -46,7 +46,7 @@ export default defineComponent ({
     };
   },
   created() {
-    this.getIpAdress();
+    // this.getIpAdress();
   },
   mounted() {
     this.browser = ua().browser;
