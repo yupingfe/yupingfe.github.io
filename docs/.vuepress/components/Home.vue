@@ -6,7 +6,9 @@
           <h1>Hello.</h1>
           <div class="intro">
             I am a Web developer.<br />
-            This site collects my study notes. Hope it helps you someway.
+            This site collects my study notes. Hope it helps you someway.<br />
+            <br />
+            <a class="link" href="./notes/">Check it out</a>
           </div>
         </div>
       </transition>
@@ -89,6 +91,9 @@ export default defineComponent ({
 }
 .main .greeting .intro {
   font-size: 1.6rem;
+}
+.main .greeting .intro .link {
+  text-decoration:underline;
 }
 .foot {
   position: fixed;
