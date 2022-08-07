@@ -1,7 +1,13 @@
-const moment = require('moment');
+const { defaultTheme } = require('vuepress');
+const { registerComponentsPlugin } = require('@vuepress/plugin-register-components')
+const { path } = require('@vuepress/utils');
+const { default: pwaPlugin } = require('@vuepress/plugin-pwa');
+const { default: searchPlugin } = require('@vuepress/plugin-search');
+
+
 module.exports = {
-  title: 'Cyan\'s Blog',
-  description: 'cyan的技术博客',
+  title: 'Yuping\'s Note',
+  description: 'YUPING的学习笔记',
   head: [ // 注入到当前页面的 HTML <head> 中的标签
     ['link', { rel: 'icon', href: '/icon.png' }], // 增加一个自定义的 favicon(网页标签的图标)
     ['link', { rel: 'manifest', href: '/manifest.json' }],
@@ -18,81 +24,28 @@ module.exports = {
     lineNumbers: false // 代码块显示行号
   },
   serviceWorker: true,
-  themeConfig: {
-    smoothScroll: true,
-    nav:[ // 导航栏配置
+  theme: defaultTheme({
+    navbar:[ // 导航栏配置
       {text: 'Home', link: '/' },
       {
-        text: 'HTML&CSS', 
-        link: '/htmlcss/'
+        text: 'Notes', 
+        link: '/notes/'
       },
-      {
-        text: 'JavaScript', 
-        link: '/javascript/'
-      },
-      {
-        text: 'Vue', 
-        link: '/vue/' 
-      },
-      {
-        text: 'Others', 
-        link: '/others/'
-      },
-      {
-        text: 'Comments', 
-        link: '/comments/'
-      },
-      {text: 'Games', link: 'https://zoutianwei.github.io/alpha-game'},      
-      {text: 'Github', link: 'https://github.com/zoutianwei'}      
+      {text: 'Game', link: 'https://yupingfe.github.io/alpha-game'},      
+      {text: 'Github', link: 'https://github.com/yupingfe'}      
     ],
-    sidebar: {
-      '/htmlcss/': [
-        '',
-        'interview-html',
-        'interview-css'
-      ],
-      '/javascript/': [
-        '',
-      ],
-      '/vue/': [
-        '',
-        'native',
-        'components',
-        'vue-cli',
-        'router',
-        'vuex',
-        'interview'
-      ],
-      '/others/': [
-        '',
-        'nodejs',
-        'interview-other',
-      ]
-    }, // 侧边栏配置
-    sidebarDepth: 1, // 侧边栏显示2级
-    // 默认值是 true 。设置为 false 来禁用所有页面的 下一篇 链接
-    nextLinks: false,
-    // 默认值是 true 。设置为 false 来禁用所有页面的 上一篇 链接
-    prevLinks: false,
-    // lastUpdated: '最后更新', // string | boolean
-  },
+    sidebarDepth: 2, // 侧边栏显示2级
+    lastUpdated: true,
+    contributors: false,
+    editLink: true
+
+  }),
   plugins: [
-    ['@vuepress/search', {
-      searchMaxSuggestions: 10
-    }],
-    /* [
-      '@vuepress/last-updated',
-      {
-        transformer: (timestamp, lang) => {
-          const moment = require('moment')
-          moment.locale('zh-CN')
-          return moment(timestamp).fromNow()
-        }
-      }
-    ], */
-    ['@vuepress/pwa', {
-      serviceWorker: true,
-      updatePopup: true
-  }],
+    registerComponentsPlugin({
+      // 配置项
+      componentsDir: path.resolve(__dirname, './components'),
+    }),
+    pwaPlugin(),
+    searchPlugin()
   ]
 };

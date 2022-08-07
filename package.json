@@ -5,17 +5,18 @@
   "main": "index.js",
   "author": "CYAN",
   "license": "MIT",
-  "homepage": "https://zoutianwei.github.io/",
+  "homepage": "https://yupingfe.github.io/",
   "scripts": {
     "dev": "vuepress dev docs",
     "build": "vuepress build docs"
   },
   "devDependencies": {
-    "@vuepress/plugin-pwa": "^1.8.2",
-    "vuepress": "^1.8.2"
+    "@vuepress/plugin-pwa": "^2.0.0-beta.49",
+    "@vuepress/plugin-register-components": "^2.0.0-beta.49",
+    "@vuepress/plugin-search": "^2.0.0-beta.49",
+    "vuepress": "^2.0.0-beta.49"
   },
   "dependencies": {
-    "moment": "^2.29.1",
     "node-fetch": "^2.6.1",
     "valine": "^1.4.14"
   }
