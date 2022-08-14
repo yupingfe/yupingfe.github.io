@@ -6,7 +6,7 @@ Vue3当中加入了响应式API对象，响应式对象其实是 [JavaScript Pro
 
 ## 常用的API
 
-### ref() {#ref}
+### ref()
 
 接受一个内部值，返回一个响应式的、可更改的 ref 对象，此对象只有一个指向其内部值的属性 `.value`。ref 对象是可更改的，也就是说你可以为 `.value` 赋予新的值。它也是响应式的，即所有对 `.value` 的操作都将被追踪，并且写操作会触发与之相关的副作用。
 
@@ -20,7 +20,7 @@ count.value++
 console.log(count.value) // 1
 ```
 
-### reactive() {#reactive}
+### reactive()
 
 返回一个对象的响应式代理。
 

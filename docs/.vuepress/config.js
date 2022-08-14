@@ -21,7 +21,9 @@ module.exports = {
   ],
   base: '/', // 这是部署到github相关的配置
   markdown: {
-    lineNumbers: false // 代码块显示行号
+    code: {
+      lineNumbers: false // 代码块显示行号
+    }
   },
   serviceWorker: true,
   theme: defaultTheme({
