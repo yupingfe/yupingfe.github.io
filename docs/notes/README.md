@@ -29,3 +29,5 @@
 [关于Vue3 的响应式对象与解构赋值](./timeline/2022/08/vue3-proxy-and-destructuring-assignment.md)
 
 [git revert 操作一次merge提交](./timeline/2022/08/git-revert.md)
+
+[jest的基础使用](./timeline/2022/08/jest-crash-notes.md)
