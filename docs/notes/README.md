@@ -1,5 +1,8 @@
 # 学习笔记
 
+## 十月 October
+
+[Tailwindcss 学习笔记](./timeline/2022/10/tailwindcss.md)
 ## 九月 September
 
 [敏捷开发学习之Scrum](./timeline/2022/09/scrum.md)
